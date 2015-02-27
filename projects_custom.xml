@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="projects_custom">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project" />
+        <field name="arch" type="xml">
+            <data>
+                <xpath
+                    expr="//sheet[@string='Project']/group/group/field[@name='partner_id']"
+                    position="after">
+                    <label for="manager_name" class="oe_edit_only" string="Manager Name"></label>
+                    <h3>
+                        <field name="manager_name"></field>
+                    </h3>
+                </xpath>
+                <page string="Other Info" position="replace">
+            
+                    <page string="Additional Info">
+                        <group string="Administration">
+                            <field name="privacy_visibility" widget="radio"/>
+                            <field name="planned_hours" widget="float_time"
+                                    groups="project.group_time_work_estimation_tasks"/>
+                            <field name="effective_hours" widget="float_time"
+                                    groups="project.group_time_work_estimation_tasks"/>
+                            <field name="resource_calendar_id"
+                                    groups="project.group_time_work_estimation_tasks"/>
+                        </group>
+                        
+                    </page>
+                </page>
+            	<div name="options_active" position="replace">
+                		<field name="use_tasks" class="oe_inline"/>
+                		<label for="use_tasks" string="Enable Tasks"/>
+            	</div>
+            	<page string="Project Stages" position="replace">
+            		 <page string="Stages" attrs="{'invisible': [('use_tasks', '=', False)]}" name="project_stages">
+                         <field name="type_ids"/>
+                    </page>
+            	</page>
+            </data>
+            
+        </field>
+    </record>
+  </data>
+</openerp>
